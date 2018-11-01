@@ -25,9 +25,7 @@ Game::~Game()
 
 void Game::update(sf::Time t_deltaTime)
 {
-<<<<<<< HEAD
 	m_player.update(t_deltaTime);
-=======
 	switch (m_currentMode)//gamestate
 	{
 	case GameState::intro://no process events for this screen		
@@ -42,15 +40,12 @@ void Game::update(sf::Time t_deltaTime)
 	default:
 		break;
 	}
->>>>>>> ac368d2527bf1731124cb22d983d25a1af3a1205
 }
 
 void Game::render()
 {
 	m_window.clear();
-<<<<<<< HEAD
 	m_player.render(m_window);
-=======
 	switch (m_currentMode)//gamestate
 	{
 	case GameState::intro:
@@ -65,7 +60,6 @@ void Game::render()
 	default:
 		break;
 	}
->>>>>>> ac368d2527bf1731124cb22d983d25a1af3a1205
 	m_window.display();
 }
 
