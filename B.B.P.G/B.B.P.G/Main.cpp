@@ -19,5 +19,9 @@ int main()
 {
 	Game game;
 	game.run();
+<<<<<<< HEAD
+=======
+	std::system("pause");
+>>>>>>> ac368d2527bf1731124cb22d983d25a1af3a1205
 	return 1;
 }
