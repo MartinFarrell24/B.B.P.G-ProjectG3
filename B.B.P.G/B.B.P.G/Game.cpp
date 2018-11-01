@@ -11,10 +11,14 @@ Game::~Game()
 
 void Game::update(sf::Time t_deltaTime)
 {
+	m_player.update(t_deltaTime);
 }
 
 void Game::render()
 {
+	m_window.clear();
+	m_player.render(m_window);
+	m_window.display();
 }
 
 void Game::loadAssets()

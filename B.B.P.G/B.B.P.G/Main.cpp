@@ -1,5 +1,6 @@
 #include<iostream>
 #include"Game.h"
+
 #ifdef _DEBUG 
 #pragma comment(lib,"sfml-graphics-d.lib") 
 #pragma comment(lib,"sfml-audio-d.lib") 
@@ -13,9 +14,10 @@
 #pragma comment(lib,"sfml-window.lib") 
 #pragma comment(lib,"sfml-network.lib") 
 #endif 
+
 int main()
 {
 	Game game;
-	std::system("pause");
+	game.run();
 	return 1;
 }
