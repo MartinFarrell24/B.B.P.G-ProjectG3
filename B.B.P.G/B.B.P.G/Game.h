@@ -1,8 +1,10 @@
 #pragma once
+#include"GameState.h"
 #include"Player.h"
 #include"Intro.h"
 #include"MainMenu.h"
 #include"Splash.h"
+
 class Game
 {
 	Game();
