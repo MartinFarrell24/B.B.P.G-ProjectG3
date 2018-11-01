@@ -16,6 +16,7 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_intro.loadAssets(m_textFont);
 	m_splash.loadAssets(m_textFont);
 	m_mainMenu.loadAssets(m_textFont);
+	m_gamePlay.loadAssets(m_textFont);
 }
 
 Game::~Game()
@@ -36,6 +37,9 @@ void Game::update(sf::Time t_deltaTime)
 	case GameState::mainMenu:
 		m_mainMenu.update(t_deltaTime);
 		break;
+	case GameState::gameplay:
+		m_gamePlay.update(t_deltaTime);
+		break;
 	default:
 		break;
 	}
@@ -54,6 +58,9 @@ void Game::render()
 		break;
 	case GameState::mainMenu:
 		m_mainMenu.render(m_window);
+		break;
+	case GameState::gameplay:
+		m_gamePlay.render(m_window);
 		break;
 	default:
 		break;
@@ -103,6 +110,8 @@ void Game::processEvents()
 			break;
 		case GameState::mainMenu:
 			//m_mainMenu.processEvents();
+			break;
+		case GameState::gameplay:
 			break;
 		default:
 			break;

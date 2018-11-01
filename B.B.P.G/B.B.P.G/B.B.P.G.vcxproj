@@ -120,6 +120,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
@@ -128,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GamePlay.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="MainMenu.h" />
