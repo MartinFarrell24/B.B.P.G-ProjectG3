@@ -20,6 +20,7 @@ public:
 	void update(sf::Time t_deltaTime);
 	void render();
 	void loadAssets();
+	sf::RectangleShape rectyboy;
 	void run();
 	void processEvents();
 
