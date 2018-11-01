@@ -21,8 +21,11 @@ public:
 	void update();
 	void render();
 	void loadAssets();
+<<<<<<< HEAD
 	sf::RectangleShape rectyboy;
 	GameState current_state;
+=======
+>>>>>>> 3d03e0f90ce9d823b1954b49171c3fa33e159a50
 
 private:
 	Player m_player;
