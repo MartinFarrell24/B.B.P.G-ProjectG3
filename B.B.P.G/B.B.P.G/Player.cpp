@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-	m_pos = sf::Vector2f(200, 200);
+	m_pos = sf::Vector2f(200, 580);
 	m_player.setSize(sf::Vector2f(20, 20));
 	m_player.setFillColor(sf::Color::Red);
 	m_player.setPosition(m_pos.x, m_pos.y);
