@@ -16,6 +16,7 @@
 int main()
 {
 	Game game;
+	game.run();
 	std::system("pause");
 	return 1;
 }
