@@ -26,6 +26,7 @@ Game::~Game()
 
 void Game::update(sf::Time t_deltaTime)
 {
+	m_player.update(t_deltaTime);
 	switch (m_currentMode)//gamestate
 	{
 	case GameState::intro://no process events for this screen		
@@ -48,6 +49,7 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear();
+	m_player.render(m_window);
 	switch (m_currentMode)//gamestate
 	{
 	case GameState::intro:
