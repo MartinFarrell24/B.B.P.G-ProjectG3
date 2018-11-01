@@ -4,7 +4,7 @@
 #include"Intro.h"
 #include"MainMenu.h"
 #include"Splash.h"
-#include"SFML/Graphics.hpp"
+//#include"SFML/Graphics.hpp"
 
 class Game
 {
@@ -15,6 +15,7 @@ public:
 	void update();
 	void render();
 	void loadAssets();
+	sf::RectangleShape rectyboy;
 
 private:
 	Player m_player;
