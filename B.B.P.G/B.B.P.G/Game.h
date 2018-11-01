@@ -4,7 +4,7 @@
 #include"Intro.h"
 #include"MainMenu.h"
 #include"Splash.h"
-//#include"SFML/Graphics.hpp"
+#include"SFML/Graphics.hpp"
 
 class Game
 {
@@ -12,12 +12,14 @@ public:
 	Game();
 	~Game();
 
-	void update();
+	void update(sf::Time t_deltaTime);
 	void render();
 	void loadAssets();
-	sf::RectangleShape rectyboy;
+	void run();
+	void processEvents();
 
 private:
+	sf::RenderWindow m_window;
 	Player m_player;
 	MainMenu m_mainMenu;
 	Splash m_splash;
