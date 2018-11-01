@@ -4,6 +4,7 @@
 #include"Intro.h"
 #include"MainMenu.h"
 #include"Splash.h"
+#include "GamePlay.h"
 #include"SFML/Graphics.hpp"
 #include<iostream>
 class Game
@@ -29,6 +30,7 @@ private:
 	sf::RenderWindow m_window;
 	Player m_player;
 	MainMenu m_mainMenu;
+	GamePlay m_gamePlay;
 	Splash m_splash;
 	Intro m_intro;
 	sf::Font m_textFont;
