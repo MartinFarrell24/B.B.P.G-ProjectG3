@@ -1,2 +1,10 @@
-﻿  GamePlay.cpp
-  B.B.P.G.vcxproj -> C:\Users\gregc\Documents\GitHub\B.B.P.G-ProjectG3\B.B.P.G\Debug\B.B.P.G.exe
+﻿  Game.cpp
+  GamePlay.cpp
+  Intro.cpp
+  Main.cpp
+  MainMenu.cpp
+  Player.cpp
+  Splash.cpp
+  Generating Code...
+  LINK : C:\Users\gow3m\Documents\B.B.P.G\B.B.P.G-ProjectG3\B.B.P.G\Debug\B.B.P.G.exe not found or not built by the last incremental link; performing full link
+  B.B.P.G.vcxproj -> C:\Users\gow3m\Documents\B.B.P.G\B.B.P.G-ProjectG3\B.B.P.G\Debug\B.B.P.G.exe
