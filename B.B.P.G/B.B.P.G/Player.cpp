@@ -19,7 +19,7 @@ void Player::update(sf::Time t_deltaTime)
 	moveLeft();
 	moveRight();
 	jump(t_deltaTime);
-
+	
 	if (m_pos.y >= 570)
 	{
 		m_jump = false;
@@ -38,6 +38,15 @@ void Player::update(sf::Time t_deltaTime)
 void Player::render(sf::RenderWindow &t_window)
 {
 	t_window.draw(m_player);
+	
+	m_bullet.update(m_player.getPosition());
+	if (m_bullet.getIsActive())
+	{
+		m_bullet.render(t_window);
+	}
+		
+	
+	
 }
 
 void Player::loadAssets()
