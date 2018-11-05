@@ -5,6 +5,7 @@
 #include"MainMenu.h"
 #include"Splash.h"
 #include "GamePlay.h"
+#include"Level.h"
 #include"SFML/Graphics.hpp"
 #include<iostream>
 class Game
@@ -33,6 +34,8 @@ private:
 	GamePlay m_gamePlay;
 	Splash m_splash;
 	Intro m_intro;
+
 	sf::Font m_textFont;
-	bool m_exitGame = false;;
+	bool m_exitGame = false;
+	Level m_block[5];
 };
