@@ -1,5 +1,5 @@
 #include "Game.h"
-GameState Game::m_currentMode{ GameState::intro };
+GameState Game::m_currentMode{ GameState::gameplay };
 
 Game::Game() :
 
@@ -17,6 +17,21 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_splash.loadAssets(m_textFont);
 	m_mainMenu.loadAssets(m_textFont);
 	m_gamePlay.loadAssets(m_textFont);
+
+	m_block[0].setSize(sf::Vector2f(150, 20));
+	m_block[0].setPos(sf::Vector2f(100, 200));
+
+	m_block[1].setSize(sf::Vector2f(150, 20));
+	m_block[1].setPos(sf::Vector2f(400, 300));
+
+	m_block[2].setSize(sf::Vector2f(150, 20));
+	m_block[2].setPos(sf::Vector2f(100, 400));
+
+	m_block[3].setSize(sf::Vector2f(150, 20));
+	m_block[3].setPos(sf::Vector2f(400, 500));
+
+	m_block[4].setSize(sf::Vector2f(150, 20));
+	m_block[4].setPos(sf::Vector2f(400, 100));
 }
 
 Game::~Game()
@@ -26,7 +41,7 @@ Game::~Game()
 
 void Game::update(sf::Time t_deltaTime)
 {
-	m_player.update(t_deltaTime);
+	
 	switch (m_currentMode)//gamestate
 	{
 	case GameState::intro://no process events for this screen		
@@ -40,6 +55,26 @@ void Game::update(sf::Time t_deltaTime)
 		break;
 	case GameState::gameplay:
 		m_gamePlay.update(t_deltaTime);
+		m_player.update(t_deltaTime);
+		for (int i = 0; i < 5; i++)
+		{
+			if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
+			{
+				if (m_block[i].getBody().getPosition().y < m_player.getBody().getPosition().y)
+				{
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 20));
+					m_player.setVelocityToZero();
+					m_player.setJumpFalse();
+				}
+				else if (m_block[i].getBody().getPosition().y > m_player.getBody().getPosition().y)
+				{
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 21));
+					m_player.setJumpFalse();
+					m_player.setVelocityToZero();
+					m_player.setOnBlockTrue();
+				}
+			}
+		}
 		break;
 	default:
 		break;
@@ -49,7 +84,6 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear();
-	m_player.render(m_window);
 	switch (m_currentMode)//gamestate
 	{
 	case GameState::intro:
@@ -63,6 +97,12 @@ void Game::render()
 		break;
 	case GameState::gameplay:
 		m_gamePlay.render(m_window);
+		m_player.render(m_window);
+
+		for (int i = 0; i < 5; i++)
+		{
+			m_block[i].render(m_window);
+		}
 		break;
 	default:
 		break;

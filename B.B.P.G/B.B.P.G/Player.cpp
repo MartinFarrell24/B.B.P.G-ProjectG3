@@ -58,8 +58,27 @@ void Player::jump(sf::Time t_deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		m_jump = true;
+		if (m_velocity != sf::Vector2f(0, -10) && m_onBlock)
+		{
+			m_velocity = sf::Vector2f(0, -10);
+			m_onBlock = false;
+		}
+	}
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		m_pos.y -= 10;
+		m_player.setPosition(m_pos);
+		m_jump = true;
+		m_velocity = sf::Vector2f(0, -10);
 	}
 	if (m_jump)
+	{
+		m_pos += m_velocity;
+		m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
+		m_velocity = m_velocity + m_gravity * t_deltaTime.asSeconds();
+		m_player.setPosition(m_pos.x, m_pos.y);
+	}
+	else if (!m_jump && m_pos.y <= 570)
 	{
 		m_pos += m_velocity;
 		m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
@@ -75,4 +94,40 @@ void Player::moveRight()
 		m_pos.x+= 5;
 		m_player.setPosition(m_pos.x, m_pos.y);
 	}
+}
+
+sf::RectangleShape Player::getBody()
+{
+	return m_player;
+}
+
+void Player::setPos(sf::Vector2f newPos)
+{
+	m_pos = newPos;
+	m_player.setPosition(m_pos);
+}
+
+void Player::setJumpFalse()
+{
+	m_jump = false;
+}
+
+void Player::setVelocity()
+{
+	m_velocity = sf::Vector2f(0, 2);
+}
+
+void Player::setVelocityToZero()
+{
+	m_velocity = sf::Vector2f(0, 0);
+}
+
+void Player::setOnBlockTrue()
+{
+	m_onBlock = true;
+}
+
+void Player::setOnBlockFalse()
+{
+	m_onBlock = false;
 }
