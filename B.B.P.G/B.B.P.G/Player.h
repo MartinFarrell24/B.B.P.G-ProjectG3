@@ -1,6 +1,6 @@
 #pragma once
 #include"SFML/Graphics.hpp"
-
+#include "Bullet.h"
 class Player
 {
 public:
@@ -30,4 +30,6 @@ private:
 	bool m_jump = false;
 	bool m_onBlock = false;
 	bool m_doOnce = false;
+	Bullet m_bullet;
+	
 };
