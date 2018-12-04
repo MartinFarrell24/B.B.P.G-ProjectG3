@@ -12,26 +12,39 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	{
 		std::cout << "problem loading arial black font" << std::endl;//error
 	}
+
+	if (!m_texture.loadFromFile("ASSETS\\rubbishPile.png"))
+	{
+		// error...
+	}
+
 	//pass font to all relevant files
 	m_intro.loadAssets(m_textFont);
 	m_splash.loadAssets(m_textFont);
 	m_mainMenu.loadAssets(m_textFont);
 	m_gamePlay.loadAssets(m_textFont);
 
-	m_block[0].setSize(sf::Vector2f(150, 20));
-	m_block[0].setPos(sf::Vector2f(100, 200));
+	m_block[0].setSize(sf::Vector2f(300, 50));
+	m_block[0].setPos(sf::Vector2f(120, 300));
 
-	m_block[1].setSize(sf::Vector2f(150, 20));
-	m_block[1].setPos(sf::Vector2f(400, 300));
+	m_block[1].setSize(sf::Vector2f(250, 50));
+	m_block[1].setPos(sf::Vector2f(600, 400));
 
-	m_block[2].setSize(sf::Vector2f(150, 20));
-	m_block[2].setPos(sf::Vector2f(100, 400));
+	m_block[2].setSize(sf::Vector2f(500, 50));
+	m_block[2].setPos(sf::Vector2f(0, 400));
 
-	m_block[3].setSize(sf::Vector2f(150, 20));
+	m_block[3].setSize(sf::Vector2f(400, 50));
 	m_block[3].setPos(sf::Vector2f(400, 500));
 
-	m_block[4].setSize(sf::Vector2f(150, 20));
-	m_block[4].setPos(sf::Vector2f(400, 100));
+	m_block[4].setSize(sf::Vector2f(500, 50));
+	m_block[4].setPos(sf::Vector2f(400, 200));
+
+	m_block[5].setSize(sf::Vector2f(20, 140));
+	m_block[5].setPos(sf::Vector2f(400, 200));
+
+	m_background.setSize(sf::Vector2f(1000, 1000));
+	m_background.setPosition(sf::Vector2f(0, 0));
+	m_background.setTexture(&m_texture);
 }
 
 Game::~Game()
@@ -56,7 +69,7 @@ void Game::update(sf::Time t_deltaTime)
 	case GameState::gameplay:
 		m_gamePlay.update(t_deltaTime);
 		m_player.update(t_deltaTime);
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
 			{
@@ -96,10 +109,11 @@ void Game::render()
 		m_mainMenu.render(m_window);
 		break;
 	case GameState::gameplay:
+		m_window.draw(m_background);
 		m_gamePlay.render(m_window);
 		m_player.render(m_window);
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			m_block[i].render(m_window);
 		}

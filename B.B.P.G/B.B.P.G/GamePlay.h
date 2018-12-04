@@ -13,5 +13,6 @@ public:
 private:
 	sf::Font m_font;
 	sf::Text m_message;
-
+	sf::RectangleShape m_background;
+	sf::Texture m_texture;
 };

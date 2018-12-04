@@ -2,7 +2,11 @@
 
 Level::Level()
 {
-	m_body.setFillColor(sf::Color::Blue);
+	if (!m_texture.loadFromFile("ASSETS\\platform.png"))
+	{
+		// error...
+	}
+	m_body.setTexture(&m_texture);
 }
 
 Level::~Level()
