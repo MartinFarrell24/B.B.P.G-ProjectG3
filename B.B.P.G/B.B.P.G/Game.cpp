@@ -90,7 +90,7 @@ void Game::update(sf::Time t_deltaTime)
 				{
 					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
 				}
-				if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x)
+				if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 20)
 				{
 					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
 				}
