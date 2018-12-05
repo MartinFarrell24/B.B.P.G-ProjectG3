@@ -24,23 +24,20 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_mainMenu.loadAssets(m_textFont);
 	m_gamePlay.loadAssets(m_textFont);
 
-	m_block[0].setSize(sf::Vector2f(300, 50));
-	m_block[0].setPos(sf::Vector2f(130, 300));
+	m_block[0].setSize(sf::Vector2f(250, 50));
+	m_block[0].setPos(sf::Vector2f(0, 200));
 
-	m_block[1].setSize(sf::Vector2f(250, 50));
-	m_block[1].setPos(sf::Vector2f(600, 400));
+	m_block[1].setSize(sf::Vector2f(260, 50));
+	m_block[1].setPos(sf::Vector2f(650, 350));
 
-	m_block[2].setSize(sf::Vector2f(500, 50));
-	m_block[2].setPos(sf::Vector2f(0, 400));
+	m_block[2].setSize(sf::Vector2f(490, 50));
+	m_block[2].setPos(sf::Vector2f(0, 350));
 
 	m_block[3].setSize(sf::Vector2f(400, 50));
 	m_block[3].setPos(sf::Vector2f(400, 500));
 
 	m_block[4].setSize(sf::Vector2f(500, 50));
-	m_block[4].setPos(sf::Vector2f(400, 200));
-
-	m_block[5].setSize(sf::Vector2f(20, 150));
-	m_block[5].setPos(sf::Vector2f(400, 200));
+	m_block[4].setPos(sf::Vector2f(400, 100));
 
 	m_background.setSize(sf::Vector2f(1000, 1000));
 	m_background.setPosition(sf::Vector2f(0, 0));
@@ -69,19 +66,19 @@ void Game::update(sf::Time t_deltaTime)
 	case GameState::gameplay:
 		m_gamePlay.update(t_deltaTime);
 		m_player.update(t_deltaTime);
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
 			{
-				if (m_block[i].getBody().getPosition().y < m_player.getBody().getPosition().y)
+				if (m_player.getBody().getPosition().y > m_block[i].getBody().getPosition().y)
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 20));
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y +1));
 					m_player.setVelocityToZero();
 					m_player.setJumpFalse();
 				}
-				else if (m_block[i].getBody().getPosition().y > m_player.getBody().getPosition().y)
+				else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 21));
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 70));
 					m_player.setJumpFalse();
 					m_player.setVelocityToZero();
 					m_player.setOnBlockTrue();
@@ -90,7 +87,7 @@ void Game::update(sf::Time t_deltaTime)
 				{
 					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
 				}
-				if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x)
+				if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 100)
 				{
 					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
 				}
@@ -121,7 +118,7 @@ void Game::render()
 		m_gamePlay.render(m_window);
 		m_player.render(m_window);
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			m_block[i].render(m_window);
 		}

@@ -44,7 +44,6 @@ void Player::update(sf::Time t_deltaTime)
 {
 	if (sf::Keyboard::isKeyPressed)
 	{
-		
 		moveLeft();
 		moveRight();
 		jump(t_deltaTime);
@@ -63,9 +62,9 @@ void Player::update(sf::Time t_deltaTime)
 	{
 		m_pos.x = 0;
 	}
-	else if (m_pos.x > 780)
+	else if (m_pos.x > 700)
 	{
-		m_pos.x = 780;
+		m_pos.x = 700;
 	}
 	animatedSprite.setPosition(m_player.getPosition());
 	animatedSprite.update(t_deltaTime);
