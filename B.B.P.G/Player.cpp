@@ -34,6 +34,10 @@ Player::Player()
 	animatedSprite.setPosition(m_player.getPosition());
 	m_CurrentAnim = &walkingRight;
 	
+	m_shotgunBullet[0].setVelocityShotgun(sf::Vector2f((1 + (1 / 1.41421356237)), (-(1 / 1.41421356237))));
+	m_shotgunBullet[1].setVelocityShotgun(sf::Vector2f(-1, 0));
+	m_shotgunBullet[2].setVelocityShotgun(sf::Vector2f((1 + (1 / 1.41421356237)), (1 / 1.41421356237)));
+
 }
 
 Player::~Player()

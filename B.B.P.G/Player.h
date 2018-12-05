@@ -33,6 +33,7 @@ private:
 	bool m_onBlock = false;
 	bool m_doOnce = false;
 	Bullet m_bullet;
+	Bullet m_shotgunBullet[3];
 	sf::Texture m_texture;
 	Animations walkingLeft;
 	Animations walkingRight;

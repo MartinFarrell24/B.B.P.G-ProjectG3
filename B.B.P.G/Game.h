@@ -37,7 +37,10 @@ private:
 
 	sf::Font m_textFont;
 	bool m_exitGame = false;
+	bool pickedUp = false;
 	Level m_block[5];
 	sf::Texture m_texture;
+	sf::Texture m_texture2;
 	sf::RectangleShape m_background;
+	sf::RectangleShape m_shotgun;
 };
