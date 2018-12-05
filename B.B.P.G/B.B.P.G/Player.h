@@ -1,6 +1,8 @@
 #pragma once
 #include"SFML/Graphics.hpp"
 #include "Bullet.h"
+#include "AnimatedSprite.h"
+
 class Player
 {
 public:
@@ -31,5 +33,9 @@ private:
 	bool m_onBlock = false;
 	bool m_doOnce = false;
 	Bullet m_bullet;
-	
+	sf::Texture m_texture;
+	Animations walkingLeft;
+	Animations walkingRight;
+	Animations* m_CurrentAnim;
+	AnimatedSprite animatedSprite;
 };
