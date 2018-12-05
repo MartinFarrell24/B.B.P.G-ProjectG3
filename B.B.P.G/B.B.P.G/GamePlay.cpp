@@ -3,6 +3,14 @@
 #include "Game.h"
 GamePlay::GamePlay()
 {
+	if (!m_texture.loadFromFile("ASSETS\\rubbishPile.png"))
+	{
+		// error...
+	}
+
+	m_background.setSize(sf::Vector2f(1000, 1000));
+	m_background.setPosition(sf::Vector2f(0, 0));
+	m_background.setTexture(&m_texture);
 }
 
 GamePlay::~GamePlay()
@@ -19,7 +27,7 @@ void GamePlay::update(sf::Time t_deltaTime)
 
 void GamePlay::render(sf::RenderWindow & t_window)
 {
-
+	t_window.draw(m_background);
 	t_window.draw(m_message);
 
 }

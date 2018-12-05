@@ -12,5 +12,6 @@ public:
 	sf::RectangleShape getBody();
 
 private:
+	sf::Texture m_texture;
 	sf::RectangleShape m_body;
 };
