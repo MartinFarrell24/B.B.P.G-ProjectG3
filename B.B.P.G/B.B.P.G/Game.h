@@ -37,7 +37,7 @@ private:
 
 	sf::Font m_textFont;
 	bool m_exitGame = false;
-	Level m_block[6];
+	Level m_block[5];
 	sf::Texture m_texture;
 	sf::RectangleShape m_background;
 };
