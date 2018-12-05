@@ -1,39 +1,13 @@
 #include"Player.h"
-#include <iostream>
+
 Player::Player()
 {
-	if (!m_texture.loadFromFile("ASSETS/_SPRITES/falcon.png"))
-	{
-		std::cout << "Failed to load player spritesheet!" << std::endl;
-		
-	}
-
-	m_pos = sf::Vector2f(200, 530);
-	m_player.setSize(sf::Vector2f(100, 70));
+	m_pos = sf::Vector2f(200, 580);
+	m_player.setSize(sf::Vector2f(20, 20));
 	m_player.setFillColor(sf::Color::Red);
 	m_player.setPosition(m_pos.x, m_pos.y);
 	m_gravity = sf::Vector2f(0, 9.8f * m_mass);
 	m_velocity = sf::Vector2f(0, -10);
-	walkingRight.setSpriteSheet(m_texture);
-	walkingRight.addFrame(sf::IntRect(465, 110, 50, 60));
-	walkingRight.addFrame(sf::IntRect(518, 110, 50, 60));
-	walkingRight.addFrame(sf::IntRect(595, 110, 65, 60));
-	walkingRight.addFrame(sf::IntRect(676, 110, 65, 60));
-	walkingRight.addFrame(sf::IntRect(308, 110, 65, 60));
-	walkingRight.addFrame(sf::IntRect(385, 110, 65, 60));
-
-	walkingLeft.setSpriteSheet(m_texture);
-	walkingLeft.addFrame(sf::IntRect(465, 110, 50, 60));
-	walkingLeft.addFrame(sf::IntRect(518, 110, 50, 60));
-	walkingLeft.addFrame(sf::IntRect(595, 110, 65, 60));
-	walkingLeft.addFrame(sf::IntRect(676, 110, 65, 60));
-	walkingLeft.addFrame(sf::IntRect(308, 110, 65, 60));
-	walkingLeft.addFrame(sf::IntRect(385, 110, 65, 60));
-	
-	animatedSprite = AnimatedSprite(sf::seconds(0.1), true, false);
-	animatedSprite.setPosition(m_player.getPosition());
-	m_CurrentAnim = &walkingRight;
-	
 }
 
 Player::~Player()
@@ -42,19 +16,11 @@ Player::~Player()
 
 void Player::update(sf::Time t_deltaTime)
 {
-	if (sf::Keyboard::isKeyPressed)
-	{
-		
-		moveLeft();
-		moveRight();
-		jump(t_deltaTime);
-	}
-	else
-	{
-		//animatedSprite.stop();
-	}
+	moveLeft();
+	moveRight();
+	jump(t_deltaTime);
 	
-	if (m_pos.y >= 520)
+	if (m_pos.y >= 570)
 	{
 		m_jump = false;
 		m_velocity = sf::Vector2f(0, -10);
@@ -67,15 +33,11 @@ void Player::update(sf::Time t_deltaTime)
 	{
 		m_pos.x = 780;
 	}
-	animatedSprite.setPosition(m_player.getPosition());
-	animatedSprite.update(t_deltaTime);
-	animatedSprite.play(*m_CurrentAnim);
-	animatedSprite.setLooped(true);
 }
 
 void Player::render(sf::RenderWindow &t_window)
 {
-	t_window.draw(animatedSprite);
+	t_window.draw(m_player);
 	
 	m_bullet.update(m_player.getPosition());
 	if (m_bullet.getIsActive())
@@ -95,7 +57,6 @@ void Player::moveLeft()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		m_CurrentAnim = &walkingLeft;
 		m_pos.x-= 5;
 		m_player.setPosition(m_pos.x, m_pos.y);
 	}
@@ -105,7 +66,6 @@ void Player::jump(sf::Time t_deltaTime)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-		
 		m_jump = true;
 		if (m_velocity != sf::Vector2f(0, -10) && m_onBlock)
 		{
@@ -113,7 +73,13 @@ void Player::jump(sf::Time t_deltaTime)
 			m_onBlock = false;
 		}
 	}
-	
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		m_pos.y -= 10;
+		m_player.setPosition(m_pos);
+		m_jump = true;
+		m_velocity = sf::Vector2f(0, -10);
+	}
 	if (m_jump)
 	{
 		m_pos += m_velocity;
@@ -121,7 +87,7 @@ void Player::jump(sf::Time t_deltaTime)
 		m_velocity = m_velocity + m_gravity * t_deltaTime.asSeconds();
 		m_player.setPosition(m_pos.x, m_pos.y);
 	}
-	else if (!m_jump && m_pos.y <= 520)
+	else if (!m_jump && m_pos.y <= 570)
 	{
 		m_pos += m_velocity;
 		m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
@@ -134,7 +100,6 @@ void Player::moveRight()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
-		m_CurrentAnim = &walkingRight;
 		m_pos.x+= 5;
 		m_player.setPosition(m_pos.x, m_pos.y);
 	}

@@ -5,7 +5,7 @@ Game::Game() :
 
 
 m_exitGame{ false }, //when true game will exit
-m_window{ sf::VideoMode{ 1920, 1080, 32 }, "B.B.P.G." }
+m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 
 {
 	if (!m_textFont.loadFromFile("ASSETS\\ariblk.ttf"))//load font into m_textFont
@@ -62,13 +62,13 @@ void Game::update(sf::Time t_deltaTime)
 			{
 				if (m_block[i].getBody().getPosition().y < m_player.getBody().getPosition().y)
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 60));
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 20));
 					m_player.setVelocityToZero();
 					m_player.setJumpFalse();
 				}
 				else if (m_block[i].getBody().getPosition().y > m_player.getBody().getPosition().y)
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 61));
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 21));
 					m_player.setJumpFalse();
 					m_player.setVelocityToZero();
 					m_player.setOnBlockTrue();
