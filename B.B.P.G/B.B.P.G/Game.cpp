@@ -25,7 +25,7 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_gamePlay.loadAssets(m_textFont);
 
 	m_block[0].setSize(sf::Vector2f(300, 50));
-	m_block[0].setPos(sf::Vector2f(120, 300));
+	m_block[0].setPos(sf::Vector2f(130, 300));
 
 	m_block[1].setSize(sf::Vector2f(250, 50));
 	m_block[1].setPos(sf::Vector2f(600, 400));
@@ -39,7 +39,7 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_block[4].setSize(sf::Vector2f(500, 50));
 	m_block[4].setPos(sf::Vector2f(400, 200));
 
-	m_block[5].setSize(sf::Vector2f(20, 140));
+	m_block[5].setSize(sf::Vector2f(20, 150));
 	m_block[5].setPos(sf::Vector2f(400, 200));
 
 	m_background.setSize(sf::Vector2f(1000, 1000));
@@ -85,6 +85,14 @@ void Game::update(sf::Time t_deltaTime)
 					m_player.setJumpFalse();
 					m_player.setVelocityToZero();
 					m_player.setOnBlockTrue();
+				}
+				if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_player.getBody().getPosition().x)
+				{
+					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
+				}
+				if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x)
+				{
+					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
 				}
 			}
 		}
