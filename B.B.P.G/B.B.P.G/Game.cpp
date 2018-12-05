@@ -18,6 +18,11 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 		// error...
 	}
 
+	if (!m_texture2.loadFromFile("ASSETS\\shotgun.png"))
+	{
+		// error...
+	}
+
 	//pass font to all relevant files
 	m_intro.loadAssets(m_textFont);
 	m_splash.loadAssets(m_textFont);
@@ -42,6 +47,10 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_background.setSize(sf::Vector2f(1000, 1000));
 	m_background.setPosition(sf::Vector2f(0, 0));
 	m_background.setTexture(&m_texture);
+
+	m_shotgun.setTexture(&m_texture2);
+	m_shotgun.setSize(sf::Vector2f(50, 50));
+	m_shotgun.setPosition(600, 50);
 }
 
 Game::~Game()
@@ -92,6 +101,14 @@ void Game::update(sf::Time t_deltaTime)
 					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
 				}
 			}
+			if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
+			{
+				pickedUp = true;
+				for (int i = 0; i < 3; i++)
+				{
+
+				}
+			}
 		}
 		break;
 	default:
@@ -120,7 +137,11 @@ void Game::render()
 
 		for (int i = 0; i < 5; i++)
 		{
-			m_block[i].render(m_window);
+			m_block[i].render(m_window);	
+		}
+		if (!pickedUp)
+		{
+			m_window.draw(m_shotgun);
 		}
 		break;
 	default:

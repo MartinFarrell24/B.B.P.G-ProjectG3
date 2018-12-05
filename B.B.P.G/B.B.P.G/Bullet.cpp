@@ -3,9 +3,9 @@
 Bullet::Bullet()
 {
 	m_pos = sf::Vector2f(200, 580);
-	m_body.setSize(sf::Vector2f(5, 5));
+	m_body.setSize(sf::Vector2f(10, 5));
 	m_body.setFillColor(sf::Color::Green);
-	//m_body.setPosition(m_pos.x, m_pos.y);
+	m_body.setPosition(m_pos.x, m_pos.y);
 	
 	m_velocity = sf::Vector2f(0, -10);
 }
@@ -61,28 +61,54 @@ void Bullet::loadAssets()
 
 void Bullet::fire(sf::Vector2f t_pos)
 {
-	if (!isActive)
+	if (!isActive && !shotgun)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
-			setIsActive(t_pos);
-			m_velocity = sf::Vector2f(0, -2);
+			if (!shotgun)
+			{
+				setIsActive(t_pos);
+				m_velocity = sf::Vector2f(0, -2);
+			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			setIsActive(t_pos);
-			m_velocity = sf::Vector2f(-2, 0);
+			if (!shotgun)
+			{
+				setIsActive(t_pos);
+				m_velocity = sf::Vector2f(-2, 0);
+			}
+			else if(shotgun)
+			{
+				setIsActive(t_pos);
+				m_velocity = shotgunVelocity;
+			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			setIsActive(t_pos);
-			m_velocity = sf::Vector2f(2, 0);
+			if (!shotgun)
+			{
+				setIsActive(t_pos);
+				m_velocity = sf::Vector2f(2, 0);
+			}
+			else if (shotgun)
+			{
+				setIsActive(t_pos);
+				m_velocity.x = -shotgunVelocity.x;
+				m_velocity.y = shotgunVelocity.y;
+			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
-			setIsActive(t_pos);
-			m_velocity = sf::Vector2f(0, 2);
+			if (!shotgun)
+			{
+				setIsActive(t_pos);
+				m_velocity = sf::Vector2f(0, 2);
+			}
 		}
+	}
+	else if (shotgun)
+	{
 	}
 }
 
@@ -117,6 +143,16 @@ void Bullet::setIsActive(sf::Vector2f t_pos)
 {
 	m_body.setPosition(t_pos);
 	isActive = true;
+}
+
+void Bullet::setVelocityShotgun(sf::Vector2f vel)
+{
+	m_velocity = vel;
+}
+
+void Bullet::setShotgunTrue()
+{
+	shotgun = true;
 }
 
 
