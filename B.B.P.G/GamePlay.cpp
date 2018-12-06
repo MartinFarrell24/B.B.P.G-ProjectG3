@@ -8,9 +8,11 @@ GamePlay::GamePlay()
 		// error...
 	}
 
+	
 	m_background.setSize(sf::Vector2f(1000, 1000));
 	m_background.setPosition(sf::Vector2f(0, 0));
 	m_background.setTexture(&m_texture);
+	
 }
 
 GamePlay::~GamePlay()
@@ -40,4 +42,9 @@ void GamePlay::loadAssets(sf::Font & t_font)
 	m_message.setCharacterSize(24u);
 	m_message.setString("gameplay");
 	m_message.setFont(m_font);
+}
+
+void GamePlay::setPickedUpTrue()
+{
+	pickedUp = true;
 }
