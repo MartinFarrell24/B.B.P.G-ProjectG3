@@ -8,9 +8,6 @@ public:
 	~FullRope();
 	
 	void update(sf::Time t_deltaTime);
-	void loadAssets();
-	
-	void setPos(sf::Vector2f newPos);
 	void connectRope(RopeSeg t_ropeSegA, RopeSeg t_ropeSegB);
 	void setAnchorRope(sf::Vector2f m_pos);
 	float distanceCalc(RopeSeg t_ropeSegA, RopeSeg t_ropeSegB);

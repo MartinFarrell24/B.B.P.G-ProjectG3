@@ -7,8 +7,6 @@ public:
 	RopeSeg();
 	~RopeSeg();
 
-	void update(sf::Time t_deltaTime);
-	void loadAssets();
 	sf::RectangleShape getBody();
 	void setPos(sf::Vector2f newPos);
 	void setAnchor();
