@@ -106,6 +106,14 @@ void Player::moveLeft()
 		m_pos.x-= 5;
 		m_player.setPosition(m_pos.x, m_pos.y);
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && poweredUp)
+	{
+		m_CurrentAnim = &walkingRight;
+		m_pos.x -= 300;
+		m_player.setPosition(m_pos.x, m_pos.y);
+		poweredUp = false;
+		reductionOfPowerBar = true;
+	}
 }
 
 void Player::jump(sf::Time t_deltaTime)
@@ -145,11 +153,19 @@ void Player::jump(sf::Time t_deltaTime)
 
 void Player::moveRight()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)&& !poweredUp)
 	{
 		m_CurrentAnim = &walkingRight;
 		m_pos.x+= 5;
 		m_player.setPosition(m_pos.x, m_pos.y);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && poweredUp)
+	{
+		m_CurrentAnim = &walkingRight;
+		m_pos.x += 300;
+		m_player.setPosition(m_pos.x, m_pos.y);
+		poweredUp = false;
+		reductionOfPowerBar = true;
 	}
 }
 

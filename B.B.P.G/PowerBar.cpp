@@ -2,7 +2,7 @@
 
 PowerBar::PowerBar()
 {
-	powerBarWidth = 0;
+	powerBarWidth = 90;
 	outerRect.setSize(sf::Vector2f(100, 20));
 	outerRect.setFillColor(sf::Color::Red);
 	outerRect.setPosition(sf::Vector2f(10, 10));
