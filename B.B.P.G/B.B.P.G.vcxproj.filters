@@ -52,6 +52,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RopeSegment.cpp">
+    <ClCompile Include="PowerBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,6 +94,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RopeSegment.h">
+    <ClInclude Include="PowerBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

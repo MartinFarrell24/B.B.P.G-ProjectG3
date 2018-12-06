@@ -6,6 +6,7 @@
 #include"Splash.h"
 #include "GamePlay.h"
 #include"Level.h"
+#include"PowerBar.h"
 #include"SFML/Graphics.hpp"
 #include<iostream>
 class Game
@@ -34,6 +35,7 @@ private:
 	GamePlay m_gamePlay;
 	Splash m_splash;
 	Intro m_intro;
+	PowerBar m_powerBar;
 
 	sf::Font m_textFont;
 	bool m_exitGame = false;

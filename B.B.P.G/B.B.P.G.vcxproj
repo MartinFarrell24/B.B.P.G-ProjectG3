@@ -131,6 +131,7 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RopeSegment.cpp" />
+    <ClCompile Include="PowerBar.cpp" />
     <ClCompile Include="Splash.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GamePlay.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="PowerBar.h" />
     <ClInclude Include="Intro.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
