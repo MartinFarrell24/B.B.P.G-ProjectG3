@@ -30,7 +30,7 @@ void GamePlay::update(sf::Time t_deltaTime)
 void GamePlay::render(sf::RenderWindow & t_window)
 {
 	t_window.draw(m_background);
-	t_window.draw(m_message);
+	//t_window.draw(m_message);
 
 }
 

@@ -115,6 +115,12 @@ void Player::jump(sf::Time t_deltaTime)
 			m_velocity = sf::Vector2f(0, -10);
 			m_onBlock = false;
 		}
+		if (!m_onBlock && poweredUp)
+		{
+			m_velocity = sf::Vector2f(0, -15);
+			poweredUp = false;
+			reductionOfPowerBar = true;
+		}
 	}
 	
 	if (m_jump)
@@ -177,4 +183,24 @@ void Player::setOnBlockTrue()
 void Player::setOnBlockFalse()
 {
 	m_onBlock = false;
+}
+
+void Player::setPoweredUpTrue()
+{
+	poweredUp = true;
+}
+
+void Player::setPoweredUpFalse()
+{
+	poweredUp = false;
+}
+
+bool Player::reducePowerBar()
+{
+	return reductionOfPowerBar;
+}
+
+void Player::stopPowerReduction()
+{
+	reductionOfPowerBar = false;
 }

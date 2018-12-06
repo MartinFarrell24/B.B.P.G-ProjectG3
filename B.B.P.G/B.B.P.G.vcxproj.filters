@@ -48,6 +48,9 @@
     <ClCompile Include="Animations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PowerBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

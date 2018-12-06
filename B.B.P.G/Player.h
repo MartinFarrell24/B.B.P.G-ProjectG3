@@ -22,6 +22,10 @@ public:
 	void setVelocityToZero();
 	void setOnBlockTrue();
 	void setOnBlockFalse();
+	void setPoweredUpTrue();
+	void setPoweredUpFalse();
+	bool reducePowerBar();
+	void stopPowerReduction();
 
 private:
 	sf::RectangleShape m_player;
@@ -32,6 +36,8 @@ private:
 	bool m_jump = false;
 	bool m_onBlock = false;
 	bool m_doOnce = false;
+	bool poweredUp = false;
+	bool reductionOfPowerBar = false;
 	Bullet m_bullet;
 	Bullet m_shotgunBullet[3];
 	sf::Texture m_texture;

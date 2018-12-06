@@ -104,11 +104,21 @@ void Game::update(sf::Time t_deltaTime)
 			if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
 			{
 				pickedUp = true;
-				for (int i = 0; i < 3; i++)
-				{
-
-				}
 			}
+			m_powerBar.update(t_deltaTime);
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		{
+			m_player.setPoweredUpTrue();
+		}
+		if (m_powerBar.getPowerlevel() < 50)
+		{
+			m_player.setPoweredUpFalse();
+		}
+		if (m_player.reducePowerBar() == true)
+		{
+			m_powerBar.reducePower();
+			m_player.stopPowerReduction();
 		}
 		break;
 	default:
@@ -134,6 +144,7 @@ void Game::render()
 		m_window.draw(m_background);
 		m_gamePlay.render(m_window);
 		m_player.render(m_window);
+		m_powerBar.render(m_window);
 
 		for (int i = 0; i < 5; i++)
 		{
