@@ -48,6 +48,12 @@
     <ClCompile Include="Animations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FullRope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RopeSegment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -81,6 +87,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FullRope.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RopeSegment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

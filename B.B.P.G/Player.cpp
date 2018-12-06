@@ -33,7 +33,7 @@ Player::Player()
 	animatedSprite = AnimatedSprite(sf::seconds(0.1), true, false);
 	animatedSprite.setPosition(m_player.getPosition());
 	m_CurrentAnim = &walkingRight;
-	
+	m_grapple.setAnchorRope(sf::Vector2f(200, 400));
 }
 
 Player::~Player()
@@ -42,12 +42,15 @@ Player::~Player()
 
 void Player::update(sf::Time t_deltaTime)
 {
+	m_grapple.update(t_deltaTime);
+
 	if (sf::Keyboard::isKeyPressed)
 	{
 		moveLeft();
 		moveRight();
 		jump(t_deltaTime);
 	}
+	
 	else
 	{
 		//animatedSprite.stop();
@@ -81,7 +84,7 @@ void Player::render(sf::RenderWindow &t_window)
 	{
 		m_bullet.render(t_window);
 	}
-		
+	m_grapple.render(t_window);
 	
 	
 }
