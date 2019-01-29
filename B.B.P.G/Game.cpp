@@ -87,7 +87,7 @@ void Game::update(sf::Time t_deltaTime)
 				}
 				else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 70));
+					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 60));
 					m_player.setJumpFalse();
 					m_player.setVelocityToZero();
 					m_player.setOnBlockTrue();

@@ -43,6 +43,10 @@ private:
 	sf::Texture m_texture;
 	Animations walkingLeft;
 	Animations walkingRight;
+	Animations idleRight;
+	Animations idleLeft;
+	Animations jumpRight;
+	Animations jumpLeft;
 	Animations* m_CurrentAnim;
 	AnimatedSprite animatedSprite;
 	FullRope m_grapple;
