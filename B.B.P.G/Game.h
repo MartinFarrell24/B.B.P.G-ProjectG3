@@ -45,4 +45,11 @@ private:
 	sf::Texture m_texture2;
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_shotgun;
+	sf::RectangleShape m_pauseButtons[2];
+	int buttonHighlighted = 0;
+	bool buttonPressed = false;
+	bool gamePaused = false;
+	int buttonTimer = 0;
+	int mainMenuTimer = 0;
+	sf::Text pausedButtonText[2];
 };
