@@ -51,6 +51,28 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_shotgun.setTexture(&m_texture2);
 	m_shotgun.setSize(sf::Vector2f(50, 50));
 	m_shotgun.setPosition(600, 50);
+
+	for (int i = 0; i < 2; i++)
+	{
+		m_pauseButtons[i].setPosition(350, 125 + 150 * i);
+		m_pauseButtons[i].setSize(sf::Vector2f(200, 100));
+		m_pauseButtons[i].setOutlineThickness(5);
+		m_pauseButtons[i].setOutlineColor(sf::Color::White);
+		m_pauseButtons[i].setFillColor(sf::Color::Blue);
+	}
+	m_pauseButtons[0].setOutlineColor(sf::Color::Red);
+
+	for (int i = 0; i < 2; i++)
+	{
+		pausedButtonText[i].setFont(m_textFont);
+		pausedButtonText[i].setCharacterSize(32u);
+		pausedButtonText[i].setOutlineThickness(2);
+		pausedButtonText[i].setOutlineColor(sf::Color::White);
+		pausedButtonText[i].setFillColor(sf::Color::Red);
+		pausedButtonText[i].setPosition(sf::Vector2f(365, 150 + 140 * i));
+	}
+	pausedButtonText[0].setString("Continue");
+	pausedButtonText[1].setString("Quit Game");
 }
 
 Game::~Game()
@@ -70,55 +92,122 @@ void Game::update(sf::Time t_deltaTime)
 		m_splash.update(t_deltaTime);
 		break;
 	case GameState::mainMenu:
-		m_mainMenu.update(t_deltaTime);
+		if (!gamePaused)
+		{
+			m_mainMenu.update(t_deltaTime);
+		}
+		mainMenuTimer++;
+		if (mainMenuTimer > 70)
+		{
+			mainMenuTimer = 0;
+			gamePaused = false;
+		}
 		break;
 	case GameState::gameplay:
-		m_gamePlay.update(t_deltaTime);
-		m_player.update(t_deltaTime);
-		for (int i = 0; i < 5; i++)
+		if (!gamePaused)
 		{
-			if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
+			m_gamePlay.update(t_deltaTime);
+			m_player.update(t_deltaTime);
+			for (int i = 0; i < 5; i++)
 			{
-				if (m_player.getBody().getPosition().y > m_block[i].getBody().getPosition().y)
+				if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y +1));
-					m_player.setVelocityToZero();
-					m_player.setJumpFalse();
+					if (m_player.getBody().getPosition().y > m_block[i].getBody().getPosition().y)
+					{
+						m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 1));
+						m_player.setVelocityToZero();
+						m_player.setJumpFalse();
+					}
+					else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
+					{
+						m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 60));
+						m_player.setJumpFalse();
+						m_player.setVelocityToZero();
+						m_player.setOnBlockTrue();
+					}
+					if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_player.getBody().getPosition().x)
+					{
+						m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
+					}
+					if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 100)
+					{
+						m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
+					}
 				}
-				else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
+				if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
 				{
-					m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 60));
-					m_player.setJumpFalse();
-					m_player.setVelocityToZero();
-					m_player.setOnBlockTrue();
+					pickedUp = true;
 				}
-				if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_player.getBody().getPosition().x)
+				m_powerBar.update(t_deltaTime);
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+			{
+				m_player.setPoweredUpTrue();
+			}
+			if (m_powerBar.getPowerlevel() < 50)
+			{
+				m_player.setPoweredUpFalse();
+			}
+			if (m_player.reducePowerBar() == true)
+			{
+				m_powerBar.reducePower();
+				m_player.stopPowerReduction();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+				gamePaused = true;
+			}
+		}
+		else if (gamePaused)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				if (!buttonPressed)
 				{
-					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
-				}
-				if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 100)
-				{
-					m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
+					m_pauseButtons[buttonHighlighted].setOutlineColor(sf::Color::White);
+					buttonHighlighted++;
+					if (buttonHighlighted > 1)
+					{
+						buttonHighlighted = 0;
+					}
+					m_pauseButtons[buttonHighlighted].setOutlineColor(sf::Color::Red);
+					buttonPressed = true;
 				}
 			}
-			if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 			{
-				pickedUp = true;
+				if (!buttonPressed)
+				{
+					m_pauseButtons[buttonHighlighted].setOutlineColor(sf::Color::White);
+					buttonHighlighted--;
+					if (buttonHighlighted < 0)
+					{
+						buttonHighlighted = 1;
+					}
+					m_pauseButtons[buttonHighlighted].setOutlineColor(sf::Color::Red);
+					buttonPressed = true;
+				}
 			}
-			m_powerBar.update(t_deltaTime);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-		{
-			m_player.setPoweredUpTrue();
-		}
-		if (m_powerBar.getPowerlevel() < 50)
-		{
-			m_player.setPoweredUpFalse();
-		}
-		if (m_player.reducePowerBar() == true)
-		{
-			m_powerBar.reducePower();
-			m_player.stopPowerReduction();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			{
+				if (buttonHighlighted == 0)
+				{
+					gamePaused = false;
+				}
+				else if (buttonHighlighted == 1)
+				{
+					m_currentMode = mainMenu;
+				}
+			}
+
+			buttonTimer++;
+			if (buttonTimer > 20) 
+			{
+				buttonTimer = 0;
+				buttonPressed = false;
+			}
+			
 		}
 		break;
 	default:
@@ -153,6 +242,14 @@ void Game::render()
 		if (!pickedUp)
 		{
 			m_window.draw(m_shotgun);
+		}
+		if (gamePaused)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				m_window.draw(m_pauseButtons[i]);
+				m_window.draw(pausedButtonText[i]);
+			}
 		}
 		break;
 	default:
