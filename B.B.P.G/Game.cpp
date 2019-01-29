@@ -1,5 +1,5 @@
 #include "Game.h"
-GameState Game::m_currentMode{ GameState::gameplay };
+GameState Game::m_currentMode{ GameState::splash };
 
 Game::Game() :
 
