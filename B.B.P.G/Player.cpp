@@ -14,6 +14,8 @@ Player::Player()
 	m_player.setPosition(m_pos.x, m_pos.y);
 	m_gravity = sf::Vector2f(0, 9.8f * m_mass);
 	m_velocity = sf::Vector2f(0, -10);
+
+
 	walkingRight.setSpriteSheet(m_texture);
 	walkingRight.addFrame(sf::IntRect(465, 110, 50, 60));
 	walkingRight.addFrame(sf::IntRect(518, 110, 50, 60));

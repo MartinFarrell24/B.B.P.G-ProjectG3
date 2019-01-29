@@ -1,5 +1,6 @@
 #pragma once
 #include"SFML/Graphics.hpp"
+//#include "AnimatedSprite.h"
 class GamePlay
 {
 public:
@@ -15,6 +16,8 @@ private:
 	sf::Font m_font;
 	sf::Text m_message;
 	sf::RectangleShape m_background;
+	
 	sf::Texture m_texture;
+	sf::Texture m_facTex;
 	bool pickedUp = false;
 };
