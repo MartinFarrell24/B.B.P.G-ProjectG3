@@ -1,5 +1,6 @@
 #pragma once
 #include"SFML/Graphics.hpp"
+#include"GameState.h"
 class MainMenu
 {
 public:
@@ -12,5 +13,9 @@ public:
 
 private:
 	sf::Font m_font;
-	sf::Text m_message;
+	sf::Text m_message[3];
+	int buttonHighlighted = 0;
+	sf::RectangleShape m_buttons[3];
+	bool pressedOnce = false;
+	int count = 0;
 };
