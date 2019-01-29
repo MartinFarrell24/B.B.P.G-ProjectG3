@@ -1,5 +1,5 @@
 #include "Game.h"
-GameState Game::m_currentMode{ GameState::intro };
+GameState Game::m_currentMode{ GameState::mainMenu };
 
 Game::Game() :
 
