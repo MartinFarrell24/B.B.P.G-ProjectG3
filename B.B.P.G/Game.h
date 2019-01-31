@@ -8,6 +8,7 @@
 #include"Level.h"
 #include"PowerBar.h"
 #include"SFML/Graphics.hpp"
+#include "EnemySlime.h"
 #include<iostream>
 class Game
 {
@@ -26,7 +27,7 @@ public:
 	sf::RectangleShape rectyboy;
 	void run();
 	void processEvents();
-
+	
 
 private:
 	sf::RenderWindow m_window;
@@ -36,6 +37,7 @@ private:
 	Splash m_splash;
 	Intro m_intro;
 	PowerBar m_powerBar;
+	Slime m_slime[5];
 
 	sf::Font m_textFont;
 	bool m_exitGame = false;

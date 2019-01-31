@@ -15,6 +15,7 @@
     <ClCompile Include="RopeSegment.cpp" />
     <ClCompile Include="PowerBar.cpp" />
     <ClCompile Include="Splash.cpp" />
+    <ClCompile Include="EnemySlime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
@@ -31,5 +32,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="RopeSegment.h" />
     <ClInclude Include="Splash.h" />
+    <ClInclude Include="EnemySlime.h" />
   </ItemGroup>
 </Project>
