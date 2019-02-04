@@ -29,8 +29,8 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	m_mainMenu.loadAssets(m_textFont);
 	m_gamePlay.loadAssets(m_textFont);
 
-	m_block[0].setSize(sf::Vector2f(250, 50));
-	m_block[0].setPos(sf::Vector2f(0, 200));
+	m_block[0].setSize(sf::Vector2f(800, 50));
+	m_block[0].setPos(sf::Vector2f(0, 550));
 
 	m_block[1].setSize(sf::Vector2f(260, 50));
 	m_block[1].setPos(sf::Vector2f(650, 350));

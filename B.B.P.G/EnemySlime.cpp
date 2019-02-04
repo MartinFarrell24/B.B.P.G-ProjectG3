@@ -36,7 +36,7 @@ Slime::Slime()
 	animatedSprite = AnimatedSprite(sf::seconds(0.1), true, false);
 	animatedSprite.setPosition(m_slime.getPosition());
 	m_CurrentAnimSlime = &idleRight;
-	
+	m_jumpCounter = 100;
 
 }
 
@@ -51,14 +51,16 @@ void Slime::update(sf::Time t_deltaTime)
 	if (m_CurrentAnimSlime == &jumpLeft)
 	{
 		m_CurrentAnimSlime = &idleLeft;
+		moveLeft();
 	}
 	if (m_CurrentAnimSlime == &jumpRight)
 	{
 		m_CurrentAnimSlime = &idleRight;
+		moveRight();
 	}
 	
-		moveLeft();
-		moveRight();
+		
+		
 		jump(t_deltaTime);
 		
 	
@@ -96,68 +98,83 @@ void Slime::render(sf::RenderWindow &t_window)
 
 void Slime::moveLeft()
 {
-	if (m_CurrentAnimSlime = &idleLeft)
-	{
-		m_CurrentAnimSlime = &jumpLeft;
-		//m_pos.x -= 5;
+	
+		//m_CurrentAnimSlime = &jumpLeft;
+		m_pos.x += 0.2;
 		m_slime.setPosition(m_pos.x, m_pos.y);
-	}
+	
 }
 
 void Slime::jump(sf::Time t_deltaTime)
 {
 	
-
+	if (m_CurrentAnimSlime != &idleLeft || m_CurrentAnimSlime != &idleRight)
+	{
 		m_jump = true;
 		if (m_velocity != sf::Vector2f(0, -10) && m_onBlock)
 		{
 			m_velocity = sf::Vector2f(0, -10);
 			m_onBlock = false;
 		}
-		
-	
 
-	if (m_jump)
-	{
-		m_pos += m_velocity;
-		m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
-		m_velocity = m_velocity + m_gravity * t_deltaTime.asSeconds();
-		m_slime.setPosition(m_pos.x, m_pos.y);
-		if (m_CurrentAnimSlime == &idleRight)
-		{
-			m_CurrentAnimSlime = &jumpRight;
-		}
-		if (m_CurrentAnimSlime == &idleLeft)
-		{
-			m_CurrentAnimSlime = &jumpLeft;
-		}
 
-	}
-	else if (!m_jump && m_pos.y <= 520)
-	{
-		m_pos += m_velocity;
-		m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
-		m_velocity = m_velocity + m_gravity * t_deltaTime.asSeconds();
-		m_slime.setPosition(m_pos.x, m_pos.y);
-		if (m_CurrentAnimSlime == &jumpRight)
+
+		if (m_jump)
 		{
-			m_CurrentAnimSlime = &idleRight;
+			m_pos += m_velocity;
+			m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
+			m_velocity = m_velocity + m_gravity * t_deltaTime.asSeconds();
+			m_slime.setPosition(m_pos.x, m_pos.y);
+			if (m_CurrentAnimSlime == &idleRight)
+			{
+				m_CurrentAnimSlime = &jumpRight;
+			}
+			if (m_CurrentAnimSlime == &idleLeft)
+			{
+				m_CurrentAnimSlime = &jumpLeft;
+			}
+			m_jumpCounter--;
+			if (m_jumpCounter <= 500)
+			{
+				if (m_CurrentAnimSlime == &jumpRight)
+				{
+					m_CurrentAnimSlime = &idleRight;
+				}
+				if (m_CurrentAnimSlime == &jumpLeft)
+				{
+					m_CurrentAnimSlime = &idleLeft;
+				}
+				if (m_jumpCounter <= 0)
+				{
+					//m_jumpCounter = 1000;
+				}
+			}
 		}
-		if (m_CurrentAnimSlime == &jumpLeft)
+		else if (!m_jump && m_pos.y <= 520)
 		{
-			m_CurrentAnimSlime = &idleLeft;
+			m_pos += m_velocity;
+			m_pos = m_pos + m_velocity * t_deltaTime.asSeconds() + 0.5f * m_gravity*(t_deltaTime.asSeconds() * t_deltaTime.asSeconds());
+			m_velocity = m_velocity + m_gravity * t_deltaTime.asSeconds();
+			m_slime.setPosition(m_pos.x, m_pos.y);
+			if (m_CurrentAnimSlime == &jumpRight)
+			{
+				m_CurrentAnimSlime = &idleRight;
+			}
+			if (m_CurrentAnimSlime == &jumpLeft)
+			{
+				m_CurrentAnimSlime = &idleLeft;
+			}
 		}
 	}
 }
 
 void Slime::moveRight()
 {
-	if (m_CurrentAnimSlime = &idleRight)
-	{
-		m_CurrentAnimSlime = &jumpRight;
-		//m_pos.x += 5;
+	
+		//m_CurrentAnimSlime = &jumpRight;
+		m_pos.x -= 0.2;
 		m_slime.setPosition(m_pos.x, m_pos.y);
-	}
+	
 	
 }
 
@@ -207,7 +224,7 @@ void Slime::turnToPlayer(sf::Vector2f t_playerPos)
 	if (m_pos.x > t_playerPos.x && m_CurrentAnimSlime != &jumpRight && m_CurrentAnimSlime != &jumpLeft)
 	{
 		m_CurrentAnimSlime = &idleLeft;
-		m_velocity.x = 2;
+		m_velocity.x = -2;
 	}
 }
 
