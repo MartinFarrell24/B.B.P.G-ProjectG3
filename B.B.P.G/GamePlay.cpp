@@ -14,6 +14,7 @@ GamePlay::GamePlay()
 	{
 
 	}
+	m_regBackground.setTexture(&m_texture);
 	backgroundFactory.setSpriteSheet(m_facTex);
 	backgroundFactory.addFrame(sf::IntRect(0, 0, 800, 600));
 	backgroundFactory.addFrame(sf::IntRect(0, 801, 800, 600));
@@ -57,10 +58,18 @@ void GamePlay::update(sf::Time t_deltaTime)
 	}
 }
 
-void GamePlay::render(sf::RenderWindow & t_window)
+void GamePlay::render(sf::RenderWindow & t_window,bool t_levelTwo)
 {
 	//t_window.draw(m_background);
-	t_window.draw(background);
+	if (t_levelTwo)
+	{
+		t_window.draw(m_regBackground);
+	}
+	if (t_levelTwo)
+	{
+		t_window.draw(background);
+	}
+	
 	//t_window.draw(m_message);
 
 }

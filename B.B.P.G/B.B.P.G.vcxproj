@@ -127,7 +127,6 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EnemySlime.cpp" />
-    <ClCompile Include="FullRope.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GamePlay.cpp" />
     <ClCompile Include="Intro.cpp" />
@@ -135,7 +134,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RopeSegment.cpp" />
     <ClCompile Include="PowerBar.cpp" />
     <ClCompile Include="Splash.cpp" />
   </ItemGroup>
@@ -144,7 +142,6 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EnemySlime.h" />
-    <ClInclude Include="FullRope.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GamePlay.h" />
     <ClInclude Include="GameState.h" />
@@ -153,7 +150,6 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="RopeSegment.h" />
     <ClInclude Include="Splash.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

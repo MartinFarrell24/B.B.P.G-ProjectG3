@@ -26,4 +26,5 @@ private:
 	bool isActive = false;
 	bool shotgun = false;
 	sf::Vector2f shotgunVelocity;
+	sf::Texture m_texture;
 };

@@ -2,7 +2,7 @@
 #include"SFML/Graphics.hpp"
 #include "Bullet.h"
 #include "AnimatedSprite.h"
-#include "FullRope.h"
+
 class Player
 {
 public:
@@ -51,5 +51,5 @@ private:
 	Animations jumpLeft;
 	Animations* m_CurrentAnim;
 	AnimatedSprite animatedSprite;
-	FullRope m_grapple;
+	
 };

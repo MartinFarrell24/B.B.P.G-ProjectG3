@@ -1,6 +1,9 @@
 #include"EnemySlime.h"
 #include "AnimatedSprite.h"
 #include <iostream>
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 Animations idleRight;
 Animations idleLeft;
 Animations jumpRight;
@@ -14,8 +17,9 @@ Slime::Slime()
 		std::cout << "Failed to load player spritesheet!" << std::endl;
 
 	}
+	
 	//633,313
-	m_pos = sf::Vector2f(200, 530);
+	m_pos = sf::Vector2f(rand() % 700, rand() % 500);
 	m_slime.setSize(sf::Vector2f(20, 30));
 	m_slime.setFillColor(sf::Color::Red);
 	m_slime.setPosition(m_pos.x, m_pos.y);
@@ -25,15 +29,38 @@ Slime::Slime()
 
 	idleRight.setSpriteSheet(m_texture);
 	idleRight.addFrame(sf::IntRect(0, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(60, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(120, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(180, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(240, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(300, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(360, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(420, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(480, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(540, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(600, 0, 60, 30));
+	idleRight.addFrame(sf::IntRect(660, 0, 60, 30));
+
 	idleLeft.setSpriteSheet(m_texture);
 	idleLeft.addFrame(sf::IntRect(0, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(60, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(120, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(180, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(240, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(300, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(360, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(420, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(480, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(540, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(600, 30, 60, 30));
+	idleLeft.addFrame(sf::IntRect(660, 30, 60, 30));
 
 	jumpRight.setSpriteSheet(m_texture);
 	jumpRight.addFrame(sf::IntRect(265, 15, 45, 70));
 	jumpLeft.setSpriteSheet(m_texture);
 	jumpLeft.addFrame(sf::IntRect(210, 15, 50, 70));
 
-	animatedSprite = AnimatedSprite(sf::seconds(0.1), true, false);
+	animatedSprite = AnimatedSprite(sf::seconds(.35), true, false);
 	animatedSprite.setPosition(m_slime.getPosition());
 	m_CurrentAnimSlime = &idleRight;
 	m_jumpCounter = 100;
@@ -219,12 +246,12 @@ void Slime::turnToPlayer(sf::Vector2f t_playerPos)
 	if (m_pos.x <= t_playerPos.x && m_CurrentAnimSlime != &jumpRight && m_CurrentAnimSlime != &jumpLeft)
 	{
 		m_CurrentAnimSlime = &idleRight;
-		m_velocity.x = 2;
+		m_velocity.x = 1;
 	}
 	if (m_pos.x > t_playerPos.x && m_CurrentAnimSlime != &jumpRight && m_CurrentAnimSlime != &jumpLeft)
 	{
 		m_CurrentAnimSlime = &idleLeft;
-		m_velocity.x = -2;
+		m_velocity.x = -1;
 	}
 }
 

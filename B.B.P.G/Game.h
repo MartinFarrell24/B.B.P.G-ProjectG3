@@ -10,6 +10,7 @@
 #include"SFML/Graphics.hpp"
 #include "EnemySlime.h"
 #include<iostream>
+#include <SFML/Audio.hpp>
 class Game
 {
 public:
@@ -30,6 +31,8 @@ public:
 	
 
 private:
+	sf::SoundBuffer m_buffer;
+	sf::Sound sound;
 	sf::RenderWindow m_window;
 	Player m_player;
 	MainMenu m_mainMenu;

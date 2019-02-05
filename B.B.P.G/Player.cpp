@@ -45,7 +45,7 @@ Player::Player()
 	animatedSprite = AnimatedSprite(sf::seconds(0.1), true, false);
 	animatedSprite.setPosition(m_player.getPosition());
 	m_CurrentAnim = &walkingRight;
-	m_grapple.setAnchorRope(sf::Vector2f(200, 400));
+	
 	
 	m_shotgunBullet[0].setVelocityShotgun(sf::Vector2f((1 + (1 / 1.41421356237)), (-(1 / 1.41421356237))));
 	m_shotgunBullet[1].setVelocityShotgun(sf::Vector2f(-1, 0));
@@ -59,7 +59,7 @@ Player::~Player()
 
 void Player::update(sf::Time t_deltaTime)
 {
-	m_grapple.update(t_deltaTime);
+	
 	
 	if (m_CurrentAnim == &walkingLeft)
 	{
@@ -104,12 +104,12 @@ void Player::render(sf::RenderWindow &t_window)
 {
 	t_window.draw(animatedSprite);
 	
-	m_bullet.update(m_player.getPosition());
+	m_bullet.update(sf::Vector2f((m_player.getPosition().x +m_player.getSize().x/2),(m_player.getPosition().y + m_player.getSize().y*.33)));
 	if (m_bullet.getIsActive())
 	{
 		m_bullet.render(t_window);
 	}
-	m_grapple.render(t_window);
+	
 	
 	
 }

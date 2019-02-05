@@ -1,4 +1,7 @@
 #include "Game.h"
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 GameState Game::m_currentMode{ GameState::intro };
 
 Game::Game() :
@@ -8,6 +11,7 @@ m_exitGame{ false }, //when true game will exit
 m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 
 {
+	srand(time(NULL));
 	if (!m_textFont.loadFromFile("ASSETS\\ariblk.ttf"))//load font into m_textFont
 	{
 		std::cout << "problem loading arial black font" << std::endl;//error
@@ -26,7 +30,14 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	{
 		// error...
 	}
+	if (!m_buffer.loadFromFile("ASSETS\\backgroundNoHype.wav"))
+	{
 
+	}
+	
+	sound.setBuffer(m_buffer);
+	sound.play();
+	sound.setLoop(true);
 	//pass font to all relevant files
 	m_intro.loadAssets(m_textFont);
 	m_splash.loadAssets(m_textFont);
@@ -74,6 +85,10 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 		pausedButtonText[i].setOutlineColor(sf::Color::White);
 		pausedButtonText[i].setFillColor(sf::Color::Red);
 		pausedButtonText[i].setPosition(sf::Vector2f(365, 150 + 140 * i));
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		m_slime[i].setPos(sf::Vector2f(rand()%700, rand()%400));
 	}
 	pausedButtonText[0].setString("Continue");
 	pausedButtonText[1].setString("Quit Game");
@@ -180,7 +195,7 @@ void Game::update(sf::Time t_deltaTime)
 							{
 								m_slime[j].setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_slime[j].getBody().getPosition().y));
 							}
-							if (m_block[i].getBody().getPosition().x > m_slime[j].getBody().getPosition().x + 1)
+							if (m_block[i].getBody().getPosition().x > m_slime[j].getBody().getPosition().x + 100)
 							{
 								m_slime[j].setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_slime[j].getBody().getPosition().y));
 							}
@@ -284,7 +299,7 @@ void Game::render()
 		break;
 	case GameState::gameplay:
 		m_window.draw(m_background);
-		m_gamePlay.render(m_window);
+		m_gamePlay.render(m_window, levelTwo);
 		m_player.render(m_window);
 		m_powerBar.render(m_window);
 

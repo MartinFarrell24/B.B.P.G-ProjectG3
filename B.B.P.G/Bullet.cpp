@@ -1,13 +1,26 @@
 #include"Bullet.h"
 #include <iostream>
+#include<SFML/Audio.hpp>
+sf::SoundBuffer m_buffer;
+sf::Sound m_sound;
 Bullet::Bullet()
 {
 	m_pos = sf::Vector2f(200, 580);
-	m_body.setSize(sf::Vector2f(10, 5));
-	m_body.setFillColor(sf::Color::Green);
+	m_body.setSize(sf::Vector2f(30,10));
+	//m_body.setFillColor(sf::Color::Green);
 	m_body.setPosition(m_pos.x, m_pos.y);
 	
 	m_velocity = sf::Vector2f(0, -10);
+	if (!m_texture.loadFromFile("ASSETS\\fist.png"))
+	{
+		// error...
+	}
+	m_body.setTexture(&m_texture);
+	if (!m_buffer.loadFromFile("ASSETS\\ORA.wav"))
+	{
+
+	}
+	m_sound.setBuffer(m_buffer);
 }
 
 Bullet::~Bullet()
@@ -63,20 +76,25 @@ void Bullet::fire(sf::Vector2f t_pos)
 {
 	if (!isActive && !shotgun)
 	{
+		
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
+			//m_sound.stop();
+			m_sound.play();
 			if (!shotgun)
 			{
 				setIsActive(t_pos);
-				m_velocity = sf::Vector2f(0, -2);
+				m_velocity = sf::Vector2f(0, -0.1);
 			}
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
+			//m_sound.stop();
+			m_sound.play();
 			if (!shotgun)
 			{
 				setIsActive(t_pos);
-				m_velocity = sf::Vector2f(-2, 0);
+				m_velocity = sf::Vector2f(-0.1, 0);
 			}
 			else if(shotgun)
 			{
@@ -86,10 +104,12 @@ void Bullet::fire(sf::Vector2f t_pos)
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
+			//m_sound.stop();
+			m_sound.play();
 			if (!shotgun)
 			{
 				setIsActive(t_pos);
-				m_velocity = sf::Vector2f(2, 0);
+				m_velocity = sf::Vector2f(0.1, 0);
 			}
 			else if (shotgun)
 			{
@@ -100,10 +120,12 @@ void Bullet::fire(sf::Vector2f t_pos)
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
+			//m_sound.stop();
+			m_sound.play();
 			if (!shotgun)
 			{
 				setIsActive(t_pos);
-				m_velocity = sf::Vector2f(0, 2);
+				m_velocity = sf::Vector2f(0, 0.1);
 			}
 		}
 	}
