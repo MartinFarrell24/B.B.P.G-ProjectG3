@@ -77,6 +77,15 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	}
 	pausedButtonText[0].setString("Continue");
 	pausedButtonText[1].setString("Quit Game");
+	jumpMessage.setFont(m_textFont);
+	jumpMessage.setCharacterSize(32u);
+	jumpMessage.setFillColor(sf::Color::White);
+	jumpMessage.setPosition(sf::Vector2f(10, 200));
+	jumpMessage.setString("Press Q to activate powers and jump higher");
+
+	m_door.setSize(sf::Vector2f(60, 100));
+	m_door.setPosition(700, 0);
+	m_door.setTexture(&m_doorTexture);
 }
 
 Game::~Game()
@@ -112,86 +121,94 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			m_gamePlay.update(t_deltaTime);
 			m_player.update(t_deltaTime);
-			for (int j = 0; j < 5; j++)
+			if (!levelTwo)
 			{
-				m_slime[j].update(t_deltaTime);
-				m_slime[j].turnToPlayer(m_player.getBody().getPosition());
+				for (int j = 0; j < 5; j++)
+				{
+					m_slime[j].update(t_deltaTime);
+					m_slime[j].turnToPlayer(m_player.getBody().getPosition());
 
-				for (int i = 0; i < 5; i++)
-				{
+					for (int i = 0; i < 5; i++)
+					{
 
-					if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
-					{
-						if (m_player.getBody().getPosition().y > m_block[i].getBody().getPosition().y)
+						if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
 						{
-							m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 1));
-							m_player.setVelocityToZero();
-							m_player.setJumpFalse();
+							if (m_player.getBody().getPosition().y > m_block[i].getBody().getPosition().y)
+							{
+								m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 1));
+								m_player.setVelocityToZero();
+								m_player.setJumpFalse();
+							}
+							else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
+							{
+								m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 60));
+								m_player.setJumpFalse();
+								m_player.setVelocityToZero();
+								m_player.setOnBlockTrue();
+							}
+							if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_player.getBody().getPosition().x)
+							{
+								m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
+							}
+							if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 100)
+							{
+								m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
+							}
+							if (m_player.getBody().getGlobalBounds().intersects(m_door.getGlobalBounds()))
+							{
+								m_player.setPos(sf::Vector2f(50, 450));
+								levelTwo = true;
+							}
 						}
-						else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
+						//Slime Section
+						if (m_slime[j].getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
 						{
-							m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 60));
-							m_player.setJumpFalse();
-							m_player.setVelocityToZero();
-							m_player.setOnBlockTrue();
+							if (m_slime[j].getBody().getPosition().y > m_block[i].getBody().getPosition().y)
+							{
+								m_slime[j].setPos(sf::Vector2f(m_slime[j].getBody().getPosition().x, m_slime[j].getBody().getPosition().y + 1));
+								m_slime[j].setVelocityToZero();
+								m_slime[j].setJumpFalse();
+							}
+							else if (m_slime[j].getBody().getPosition().y < m_block[i].getBody().getPosition().y)
+							{
+								m_slime[j].setPos(sf::Vector2f(m_slime[j].getBody().getPosition().x, m_block[i].getBody().getPosition().y - 30));
+								m_slime[j].setJumpFalse();
+								m_slime[j].setVelocityToZero();
+								m_slime[j].setOnBlockTrue();
+							}
+							if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_slime[j].getBody().getPosition().x)
+							{
+								m_slime[j].setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_slime[j].getBody().getPosition().y));
+							}
+							if (m_block[i].getBody().getPosition().x > m_slime[j].getBody().getPosition().x + 1)
+							{
+								m_slime[j].setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_slime[j].getBody().getPosition().y));
+							}
 						}
-						if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_player.getBody().getPosition().x)
+						if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
 						{
-							m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
+							pickedUp = true;
 						}
-						if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 100)
-						{
-							m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
-						}
+						m_powerBar.update(t_deltaTime);
 					}
-					//Slime Section
-					if (m_slime[j].getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 					{
-						if (m_slime[j].getBody().getPosition().y > m_block[i].getBody().getPosition().y)
-						{
-							m_slime[j].setPos(sf::Vector2f(m_slime[j].getBody().getPosition().x, m_slime[j].getBody().getPosition().y + 1));
-							m_slime[j].setVelocityToZero();
-							m_slime[j].setJumpFalse();
-						}
-						else if (m_slime[j].getBody().getPosition().y < m_block[i].getBody().getPosition().y)
-						{
-							m_slime[j].setPos(sf::Vector2f(m_slime[j].getBody().getPosition().x, m_block[i].getBody().getPosition().y - 30));
-							m_slime[j].setJumpFalse();
-							m_slime[j].setVelocityToZero();
-							m_slime[j].setOnBlockTrue();
-						}
-						if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_slime[j].getBody().getPosition().x)
-						{
-							m_slime[j].setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_slime[j].getBody().getPosition().y));
-						}
-						if (m_block[i].getBody().getPosition().x > m_slime[j].getBody().getPosition().x + 1)
-						{
-							m_slime[j].setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_slime[j].getBody().getPosition().y));
-						}
+						m_player.setPoweredUpTrue();
 					}
-					if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
+					if (m_powerBar.getPowerlevel() < 50)
 					{
-						pickedUp = true;
+						m_player.setPoweredUpFalse();
 					}
-					m_powerBar.update(t_deltaTime);
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-				{
-					m_player.setPoweredUpTrue();
-				}
-				if (m_powerBar.getPowerlevel() < 50)
-				{
-					m_player.setPoweredUpFalse();
-				}
-				if (m_player.reducePowerBar() == true)
-				{
-					m_powerBar.reducePower();
-					m_player.stopPowerReduction();
-				}
+					if (m_player.reducePowerBar() == true)
+					{
+						m_powerBar.reducePower();
+						m_player.stopPowerReduction();
+					}
 
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				{
-					gamePaused = true;
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+					{
+						gamePaused = true;
+					}
 				}
 			}
 		}
@@ -271,12 +288,20 @@ void Game::render()
 		m_player.render(m_window);
 		m_powerBar.render(m_window);
 
-		for (int i = 0; i < 5; i++)
+		if (!levelTwo)
 		{
-			m_block[i].render(m_window);
-			m_slime[i].render(m_window);
+			for (int i = 0; i < 5; i++)
+			{
+				m_block[i].render(m_window);
+				m_slime[i].render(m_window);
+			}
+			m_window.draw(m_door);
 		}
-		if (!pickedUp)
+		if (levelTwo)
+		{
+			m_window.draw(jumpMessage);
+		}
+		if (!pickedUp && !levelTwo)
 		{
 			m_window.draw(m_shotgun);
 		}
