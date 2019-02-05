@@ -1,5 +1,5 @@
 #include "Game.h"
-GameState Game::m_currentMode{ GameState::gameplay };
+GameState Game::m_currentMode{ GameState::intro };
 
 Game::Game() :
 
@@ -22,7 +22,6 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	{
 		// error...
 	}
-
 	if (!m_doorTexture.loadFromFile("ASSETS\\door.png"))
 	{
 		// error...
@@ -78,16 +77,6 @@ m_window{ sf::VideoMode{ 800, 600, 32 }, "B.B.P.G." }
 	}
 	pausedButtonText[0].setString("Continue");
 	pausedButtonText[1].setString("Quit Game");
-
-	jumpMessage.setFont(m_textFont);
-	jumpMessage.setCharacterSize(32u);
-	jumpMessage.setFillColor(sf::Color::White);
-	jumpMessage.setPosition(sf::Vector2f(10, 200));
-	jumpMessage.setString("Press Q to activate powers and jump higher");
-
-	m_door.setSize(sf::Vector2f(60, 100));
-	m_door.setPosition(700, 0);
-	m_door.setTexture(&m_doorTexture);
 }
 
 Game::~Game()
@@ -107,8 +96,7 @@ void Game::update(sf::Time t_deltaTime)
 		m_splash.update(t_deltaTime);
 		break;
 	case GameState::mainMenu:
-		if (!
-			gamePaused)
+		if (!gamePaused)
 		{
 			m_mainMenu.update(t_deltaTime);
 		}
@@ -184,58 +172,22 @@ void Game::update(sf::Time t_deltaTime)
 					if (m_player.getBody().getGlobalBounds().intersects(m_shotgun.getGlobalBounds()))
 					{
 						pickedUp = true;
-			if (!levelTwo)
-			{
-				for (int i = 0; i < 5; i++)
-				{
-					if (m_player.getBody().getGlobalBounds().intersects(m_block[i].getBody().getGlobalBounds()))
-					{
-						if (m_player.getBody().getPosition().y > m_block[i].getBody().getPosition().y)
-						{
-							m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_player.getBody().getPosition().y + 1));
-							m_player.setVelocityToZero();
-							m_player.setJumpFalse();
-						}
-						else if (m_player.getBody().getPosition().y < m_block[i].getBody().getPosition().y)
-						{
-							m_player.setPos(sf::Vector2f(m_player.getBody().getPosition().x, m_block[i].getBody().getPosition().y - 60));
-							m_player.setJumpFalse();
-							m_player.setVelocityToZero();
-							m_player.setOnBlockTrue();
-						}
-						if (m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width < m_player.getBody().getPosition().x)
-						{
-							m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x + m_block[i].getBody().getGlobalBounds().width, m_player.getBody().getPosition().y));
-						}
-						if (m_block[i].getBody().getPosition().x > m_player.getBody().getPosition().x + 100)
-						{
-							m_player.setPos(sf::Vector2f(m_block[i].getBody().getPosition().x, m_player.getBody().getPosition().y));
-						}
-						if (m_player.getBody().getGlobalBounds().intersects(m_door.getGlobalBounds()))
-						{
-							m_player.setPos(sf::Vector2f(50, 450));
-							levelTwo = true;
-						}
 					}
 					m_powerBar.update(t_deltaTime);
 				}
-				
-			}
-			
-			
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-			{
-				m_player.setPoweredUpTrue();
-			}
-			if (m_powerBar.getPowerlevel() < 50)
-			{
-				m_player.setPoweredUpFalse();
-			}
-			if (m_player.reducePowerBar() == true)
-			{
-				m_powerBar.reducePower();
-				m_player.stopPowerReduction();
-			}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+				{
+					m_player.setPoweredUpTrue();
+				}
+				if (m_powerBar.getPowerlevel() < 50)
+				{
+					m_player.setPoweredUpFalse();
+				}
+				if (m_player.reducePowerBar() == true)
+				{
+					m_powerBar.reducePower();
+					m_player.stopPowerReduction();
+				}
 
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				{
@@ -319,22 +271,12 @@ void Game::render()
 		m_player.render(m_window);
 		m_powerBar.render(m_window);
 
-		if (!levelTwo)
-		{
-			for (int i = 0; i < 5; i++)
-			{
-				m_block[i].render(m_window);
-				m_slime[i].render(m_window);
-			}
-			m_window.draw(m_door);
-		}
-		if (levelTwo)
+		for (int i = 0; i < 5; i++)
 		{
 			m_block[i].render(m_window);
-			
-			m_window.draw(jumpMessage);
+			m_slime[i].render(m_window);
 		}
-		if (!pickedUp && !levelTwo)
+		if (!pickedUp)
 		{
 			m_window.draw(m_shotgun);
 		}
