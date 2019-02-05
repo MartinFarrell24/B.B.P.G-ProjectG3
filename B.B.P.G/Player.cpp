@@ -263,3 +263,13 @@ void Player::stopPowerReduction()
 {
 	reductionOfPowerBar = false;
 }
+
+void Player::setGravityToZero()
+{
+	m_gravity = sf::Vector2f(0, 0);
+}
+
+void Player::setGravity()
+{
+	m_gravity = sf::Vector2f(0, 9.8f * m_mass);
+}

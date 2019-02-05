@@ -45,13 +45,17 @@ private:
 	Level m_block[5];
 	sf::Texture m_texture;
 	sf::Texture m_texture2;
+	sf::Texture m_doorTexture;
 	sf::RectangleShape m_background;
 	sf::RectangleShape m_shotgun;
 	sf::RectangleShape m_pauseButtons[2];
+	sf::RectangleShape m_door;
 	int buttonHighlighted = 0;
 	bool buttonPressed = false;
 	bool gamePaused = false;
 	int buttonTimer = 0;
 	int mainMenuTimer = 0;
 	sf::Text pausedButtonText[2];
+	bool levelTwo = false;
+	sf::Text jumpMessage;
 };

@@ -26,6 +26,8 @@ public:
 	void setPoweredUpFalse();
 	bool reducePowerBar();
 	void stopPowerReduction();
+	void setGravityToZero();
+	void setGravity();
 
 private:
 	sf::RectangleShape m_player;
